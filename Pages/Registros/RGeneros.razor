@@ -1,27 +1,29 @@
 ﻿@page "/rGeneros"
-@using Tarea2.Data;
+@using Tarea2.DAL;
+@using Tarea2.BLL;
+@using Tarea2.Entidades;
 <h1>Registro de Generos</h1>
 
-@*<p>Current count: @currentCount</p>*@
+@*<p>Current count: @currentCount</p>
 
-@*<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>*@
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>*@
 
 
 <div class="form-group col-md-6">
-	<label for="GenId">Id:</label>
+	<label for="generoid">Id:</label>
 	<form class="form-inline">
-		<input type="number" class="form-control " placeholder="Ingrese el id" id="GenId">
+		<input type="number" class="form-control "runat="server" placeholder="Ingrese el id" @bind="genero.GeneroId">
 		<button class="btn btn-primary mx-sm-3">Buscar</button>
 	</form>
 </div>
 <div class="form-group col-md-6">
-	<label for="nom">Nombre:</label>
-	<input type="text" class="form-control " placeholder="Ingrese el nombre del Genero" id="Nom">
+	<label for="nombre">Nombre:</label>
+	<input type="text" class="form-control "runat="server" placeholder="Ingrese el nombre del Genero"  @bind="genero.Nombre" >
 </div>
 <div class="form-group col-md-6">
 	<div class="form-row">
-		<button class="btn btn-primary mx-sm-2">Nuevo</button>
-		<button class="btn btn-success mx-sm-2">Guardar</button>
+		<button class="btn btn-primary mx-sm-2"@onclick="Limpiar">Nuevo</button>
+		<button class="btn btn-success mx-sm-2"@onclick="Guardar">Guardar</button>
 		<button class="btn btn-danger mx-sm-2">Eliminar</button>
 	</div>
 </div>
@@ -33,15 +35,62 @@
 
 
 
-		@code {
-			int currentCount = 0;
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    Genero genero = new Genero();
 
-			void IncrementCount()
-			{
-				currentCount++;
-				Contexto db = new Contexto();
 
-				db.Genero.Add(new Genero() { Nombre = $"Generos {currentCount}" });
-				db.SaveChanges();
-			}
+    void Limpiar()
+    {
+        
+       genero.GeneroId = 0;
+       genero.Nombre = string.Empty;
+
+    }
+    private bool ExisteEnLaBaseDeDatos()
+    {
+        RepositorioBase<Genero> db = new RepositorioBase<Genero>();
+        Genero generos = db.Buscar((int)genero.GeneroId);
+
+        return (generos != null);
+
+    }
+
+    public static bool RepetirNombre(string Nombre)
+    {
+        bool paso = false;
+        Contexto db = new Contexto();
+
+        try
+        {
+            if (db.Genero.Any(p => p.Genero.Equals(Nombre)))
+            {
+                paso = true;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        return paso;
+    }
+
+
+
+    void Eliminar()
+    {
+
+    }
+    int currentCount = 0;
+
+    void IncrementCount()
+    {
+        currentCount++;
+        Contexto db = new Contexto();
+
+
+        //db.Genero.Add(new Genero() { Nombre = $"Generos {currentCount}" });
+        //db.SaveChanges();
+    }
 		}

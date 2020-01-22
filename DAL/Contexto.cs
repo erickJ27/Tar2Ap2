@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Tarea2.Entidades;
 
-namespace Tarea2.Data
+namespace Tarea2.DAL
 {
     public class Contexto : DbContext
     {
@@ -14,14 +15,8 @@ namespace Tarea2.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-8N0MTSG\SQLEXPRESS; Database =TestDb;Trusted_Connection =true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-SBR4M50\SQLEXPRESS; Database =TestDb;Trusted_Connection =true");
         }
     }
-    public class Genero
-    {
-        [Key]
-        public int GeneroId { get; set; }
-        public string Nombre { get; set; }
-    }
-
+    
 }
