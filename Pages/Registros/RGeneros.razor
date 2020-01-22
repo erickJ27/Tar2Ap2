@@ -36,16 +36,15 @@
 
 
 @code {
-    [Parameter]
-    public int Id { get; set; }
+
     Genero genero = new Genero();
 
 
     void Limpiar()
     {
-        
-       genero.GeneroId = 0;
-       genero.Nombre = string.Empty;
+        genero = new Genero();
+        genero.GeneroId = 0;
+        genero.Nombre = string.Empty;
 
     }
     private bool ExisteEnLaBaseDeDatos()
@@ -57,26 +56,48 @@
 
     }
 
-    public static bool RepetirNombre(string Nombre)
+    //public static bool RepetirNombre(string Nombre)
+    //{
+    //    bool paso = false;
+    //    Contexto db = new Contexto();
+
+    //    try
+    //    {
+    //        if (db.Genero.Any(p => p.Genero.Equals(Nombre)))
+    //        {
+    //            paso = true;
+    //        }
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw;
+    //    }
+    //    return paso;
+    //}
+
+    private void Guardar()
     {
-        bool paso = false;
-        Contexto db = new Contexto();
+        RepositorioBase<Genero> db = new RepositorioBase<Genero>();
 
         try
         {
-            if (db.Genero.Any(p => p.Genero.Equals(Nombre)))
+            if(string.IsNullOrEmpty(genero.Nombre))
             {
-                paso = true;
+                return;
+            }
+
+
+            if (db.Guardar(genero))
+            {
+                Limpiar();
+
             }
         }
         catch (Exception)
         {
             throw;
         }
-        return paso;
     }
-
-
 
     void Eliminar()
     {
