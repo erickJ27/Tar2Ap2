@@ -4,17 +4,57 @@
 
 <p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@*<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>*@
 
-@code {
-	int currentCount = 0;
 
-	void IncrementCount()
-	{
-		currentCount++;
-		Contexto db = new Contexto();
+<div class="form-group col-md-6">
+	<label for="GenId">Id:</label>
+	<form class="form-inline">
+		<input type="number" class="form-control " placeholder="Ingrese el id" id="GenId">
+		<button class="btn btn-primary mx-sm-3">Buscar</button>
+	</form>
+</div>
+<div class="form-group col-md-6">
+	<label for="nom">Nombre:</label>
+	<input type="text" class="form-control " placeholder="Ingrese el nombre del Genero" id="Nom">
+</div>
+<div class="form-group col-md-6">
+	<div class="form-row">
+		<button class="btn btn-primary mx-sm-2">Nuevo</button>
+		<button class="btn btn-success mx-sm-2">Guardar</button>
+		<button class="btn btn-danger mx-sm-2">Eliminar</button>
+	</div>
+</div>
 
-		db.Genero.Add(new Genero() { Nombre = $"Generos {currentCount}" });
-		db.SaveChanges();
-	}
-}
+
+
+
+		@*<div class="form-row">
+			<div class="form-group col-md-1 ">
+				<label for="inputEmail4">Email</label>
+				<input type="email" class="form-control" id="inputEmail4">
+			</div>
+			<div class="form-group col-md-6 ">
+				<br />
+
+				<button class="btn btn-primary mx-sm-3">Buscar</button>
+			</div>
+		</div>*@
+
+
+
+
+
+
+		@code {
+			int currentCount = 0;
+
+			void IncrementCount()
+			{
+				currentCount++;
+				Contexto db = new Contexto();
+
+				db.Genero.Add(new Genero() { Nombre = $"Generos {currentCount}" });
+				db.SaveChanges();
+			}
+		}
