@@ -14,7 +14,7 @@ namespace Tarea2.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=EMIL56\SQLEXPRESS; Database =TestDb;Trusted_Connection =true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-8N0MTSG\SQLEXPRESS; Database =TestDb;Trusted_Connection =true");
         }
     }
     public class Genero
