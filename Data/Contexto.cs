@@ -9,7 +9,7 @@ namespace Tarea2.Data
 {
     public class Contexto : DbContext
     {
-        public DbSet<Genero> Generos { get; set; }
+        public DbSet<Genero> Genero { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
